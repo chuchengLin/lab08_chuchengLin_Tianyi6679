@@ -83,4 +83,46 @@ public interface TokenFactory {
     */
 
     public Token makeDivideToken();
+
+
+    public Token makeEqualsToken();
+
+    /** make a token that represents a not equals operator <code>!=</code>
+    @return an appropriate token
+    */
+
+    public Token makeNotEqualsToken();
+
+
+    /** make a token that represents a less than operator <code>&lt;</code>
+    @return an appropriate token
+    */
+
+    public Token makeLessThanToken();
+
+    /** make a token that represents a less than or equals operator <code>&lt;=</code>
+    @return an appropriate token
+    */
+
+    public Token makeLessThanOrEqualsToken();
+
+    /** make a token that represents a greater than operator <code>&gt;</code>
+    @return an appropriate token
+    */
+
+    public Token makeGreaterThanToken();
+
+    /** make a token that represents a greater than or equals operator <code>&gt;=</code>
+    @return an appropriate token
+    */
+
+    public Token makeGreaterThanOrEqualsToken();
+
+    /** make a token that represents an exponent operator <code>**</code>
+    @return an appropriate token
+    */
+
+    public Token makeExponentToken();
+
+
 }

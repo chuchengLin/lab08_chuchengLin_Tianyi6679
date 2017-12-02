@@ -110,4 +110,62 @@ public class DefaultTokenFactory implements TokenFactory {
     public Token makeDivideToken() {
         return new DivideToken();
     }
+
+
+    /** make a token that represents an equals operator <code>==</code>
+    @return an appropriate token
+    */
+
+    public Token makeEqualsToken() {
+        return new EqualsToken();
+    }
+
+    /** make a token that represents a not equals operator <code>!=</code>
+    @return an appropriate token
+    */
+
+    public Token makeNotEqualsToken() {
+        return new NotEqualsToken();
+    }
+
+
+    /** make a token that represents a less than operator <code>&lt;</code>
+    @return an appropriate token
+    */
+
+    public Token makeLessThanToken() {
+        return new LessThanToken();
+    }
+
+    /** make a token that represents a less than or equals operator <code>&lt;=</code>
+    @return an appropriate token
+    */
+
+    public Token makeLessThanOrEqualsToken() {
+        return new LessThanOrEqualsToken();
+    }
+
+    /** make a token that represents a greater than operator <code>&gt;</code>
+    @return an appropriate token
+    */
+
+    public Token makeGreaterThanToken() {
+        return new GreaterThanToken();
+    }
+
+    /** make a token that represents a greater than or equals operator <code>&gt;=</code>
+    @return an appropriate token
+    */
+
+    public Token makeGreaterThanOrEqualsToken() {
+        return new GreaterThanOrEqualsToken();
+    }
+
+    /** make a token that represents an exponent operator <code>**</code>
+    @return an appropriate token
+    */
+
+    public Token makeExponentToken() {
+        return new ExponentToken();
+    }
 }

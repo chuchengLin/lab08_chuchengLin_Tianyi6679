@@ -1,13 +1,11 @@
-<<<<<<< HEAD
 
-# parsing-starter-01
+# parsing-starter-02
 
-This is the starter code for a lab on recursive descent parsing.
+This is the starter code for the changes to the tokenizer for a lab on recursive descent parsing.
 
 See https://ucsb-cs56-f17.github.io/lab/lab08/ for more explanation.
 
-* [javadoc](http://ucsb-cs56-f17.github.io/parsing-starter-01/javadoc/)
-
+* [javadoc](http://ucsb-cs56-f17.github.io/parsing-starter-02/javadoc/)
 
 # Using Maven instead of Ant.
 

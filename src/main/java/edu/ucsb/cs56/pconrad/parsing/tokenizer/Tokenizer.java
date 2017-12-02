@@ -40,6 +40,15 @@ public class Tokenizer {
         fsa.addState(5, s -> new DivideToken() );
         fsa.addState(6, s -> new LParenToken() );
         fsa.addState(7, s -> new RParenToken());
+	fsa.addState(8);
+	fsa.addState(9);
+	fsa.addState(10, s -> new NotEqualsToken() );
+	fsa.addState(11, s -> new LessThanToken() );
+	fsa.addState(12, s -> new LessThanOrEqualsToken() );
+	fsa.addState(13, s -> new GreaterThanToken() );
+	fsa.addState(14, s -> new GreaterThanOrEqualsToken() );
+	fsa.addState(15, s -> new EqualsToken() );
+	fsa.addState(16, s -> new ExponentToken() );
 
         fsa.addTransition(' ',0,0);
         fsa.addTransition('\t',0,0);
@@ -56,6 +65,16 @@ public class Tokenizer {
         fsa.addTransition('/',0,5);
         fsa.addTransition('(',0,6);
         fsa.addTransition(')',0,7);
+        fsa.addTransition(')',0,7);
+        fsa.addTransition('=',0,8);
+        fsa.addTransition('=',8,15);
+        fsa.addTransition('!',0,9);
+        fsa.addTransition('=',9,10);
+        fsa.addTransition('<',0,11);
+        fsa.addTransition('=',11,12);
+        fsa.addTransition('>',0,13);
+        fsa.addTransition('=',13,14);
+	fsa.addTransition('*',4,16);
 
         return fsa;
     }
