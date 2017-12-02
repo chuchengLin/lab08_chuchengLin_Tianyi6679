@@ -46,6 +46,7 @@ public class TokenizerAddonsTest {
     }
 
     @Test
+
     public void testOneExponentToken() {
         assertArrayEquals(new Token[] { tf.makeExponentToken() },
                           Tokenizer.tokenizeToArray("**"));

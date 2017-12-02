@@ -151,14 +151,16 @@ public class DefaultTokenFactory implements TokenFactory {
 
     public Token makeGreaterThanToken() {
         return new GreaterThanToken();
-    }
+}
 
     /** make a token that represents a greater than or equals operator <code>&gt;=</code>
     @return an appropriate token
     */
 
     public Token makeGreaterThanOrEqualsToken() {
+
         return new GreaterThanOrEqualsToken();
+
     }
 
     /** make a token that represents an exponent operator <code>**</code>
@@ -166,6 +168,10 @@ public class DefaultTokenFactory implements TokenFactory {
     */
 
     public Token makeExponentToken() {
+
         return new ExponentToken();
+
     }
+
+
 }

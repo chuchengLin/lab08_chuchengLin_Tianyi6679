@@ -65,6 +65,7 @@ public class Tokenizer {
         fsa.addTransition('/',0,5);
         fsa.addTransition('(',0,6);
         fsa.addTransition(')',0,7);
+
         fsa.addTransition(')',0,7);
         fsa.addTransition('=',0,8);
         fsa.addTransition('=',8,15);

@@ -36,5 +36,41 @@ public class DefaultASTFactory implements ASTFactory {
     }
 
 
+    // This stub AST is a stub value that can be returned by
+    // factory methods that are not implemented yet.  It has no purpose
+    // in the final solution and can/should be removed.
+
+    public static final AST stubAST = new AST() {
+        public String toString() {
+            return "AST(Stub)";
+        }
+    };
+
+    // New AST nodes
+
+    public AST makeEqualsNode(AST left, AST right) {
+        return stubAST;
+    }
+    public AST makeNotEqualsNode(AST left, AST right) {
+        return stubAST;
+    }
+    public AST makeLessThanNode(AST left, AST right) {
+        return stubAST;
+    }
+    public AST makeLessThanOrEqualsNode(AST left, AST right) {
+        return stubAST;
+    }
+    public AST makeGreaterThanNode(AST left, AST right) {
+        return stubAST;
+    }
+    public AST makeGreaterThanOrEqualsNode(AST left, AST right) {
+        return stubAST;
+    }
+
+    public AST makeExponentNode(AST left, AST right) {
+        return stubAST;
+    }
+
+
 } // DefaultASTFactory
 
