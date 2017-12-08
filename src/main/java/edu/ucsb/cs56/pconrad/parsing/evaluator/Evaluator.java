@@ -20,7 +20,46 @@ public class Evaluator {
             } else {
                 return left / right;
             }
-        } else {
+        } else if (operator instanceof Equals){
+	    if(left == right) return 1;
+	    else {return 0;}
+	} else if (operator instanceof NotEquals){
+	    if(left == right) return 0;
+	    else {return 1;}
+	} else if (operator instanceof GreaterThan){
+	    if(left > right) return 1;
+	    else {return 0;}
+	}else if (operator instanceof LessThan){
+	    if(left < right) return 1;
+	    else {return 0;}
+	}else if (operator instanceof GreaterThanOrEquals){
+	    if(left >= right) return 1;
+	    else {return 0;}
+	}else if (operator instanceof LessThanOrEquals){
+	    if(left <= right) return 1;
+	    else {return 0;}
+	}else if (operator instanceof Exponent){
+	    if(right>0){
+	    		int ans = 1;
+	    		for(int i=0; i<right; i++){
+		 		ans = ans * left;
+			}
+			return ans;
+	    }
+	    else if(right == 0){
+		if(left == 0) { throw new EvaluatorException("0**0 is undefined");}
+		else return 1;
+	    }
+	    else{
+		int opposite = right * (-1);
+		int ans = 1;
+	    	for(int i=0; i<opposite; i++){
+		 	ans = ans * left;
+			}
+			return 1/ans;
+	    }
+	}
+	else {
             throw new EvaluatorException("Unknown Operator Type");
         }
     } // evaluate

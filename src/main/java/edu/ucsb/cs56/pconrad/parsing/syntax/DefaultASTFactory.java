@@ -49,26 +49,26 @@ public class DefaultASTFactory implements ASTFactory {
     // New AST nodes
 
     public AST makeEqualsNode(AST left, AST right) {
-        return stubAST;
+        return new Binop(left, Equals.EQUALS, right);
     }
     public AST makeNotEqualsNode(AST left, AST right) {
-        return stubAST;
+	return new Binop(left, NotEquals.NOTEQUALS, right);
     }
     public AST makeLessThanNode(AST left, AST right) {
-        return stubAST;
+        return new Binop(left, LessThan.LESSTHAN, right);
     }
     public AST makeLessThanOrEqualsNode(AST left, AST right) {
-        return stubAST;
+	return new Binop(left, LessThanOrEquals.LESSTHANOREQUALS, right);
     }
     public AST makeGreaterThanNode(AST left, AST right) {
-        return stubAST;
+	return new Binop(left, GreaterThan.GREATERTHAN, right);
     }
     public AST makeGreaterThanOrEqualsNode(AST left, AST right) {
-        return stubAST;
+        return new Binop(left, GreaterThanOrEquals.GREATERTHANOREQUALS, right);
     }
 
     public AST makeExponentNode(AST left, AST right) {
-        return stubAST;
+	return new Binop(left, Exponent.EXPONENT, right);
     }
 
 

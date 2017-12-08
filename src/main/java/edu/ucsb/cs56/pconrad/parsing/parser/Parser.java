@@ -18,6 +18,13 @@ public class Parser {
     public static final Token MINUS_TOKEN = new MinusToken();
     public static final Token TIMES_TOKEN = new TimesToken();
     public static final Token DIV_TOKEN = new DivideToken();
+    public static final Token EQUALS_TOKEN = new EqualsToken();
+    public static final Token NOTEQUALS_TOKEN = new NotEqualsToken();
+    public static final Token GREATERTHAN_TOKEN = new GreaterThanToken();
+    public static final Token GREATERTHANOREQUALS_TOKEN = new GreaterThanOrEqualsToken();
+    public static final Token LESSTHAN_TOKEN = new LessThanToken();
+    public static final Token LESSTHANOREQUALS_TOKEN = new LessThanOrEqualsToken();
+    public static final Token EXPONENT_TOKEN = new ExponentToken();
     // END CONSTANTS
 
     // BEGIN INSTANCE VARIABLES
@@ -65,6 +72,70 @@ public class Parser {
         }
     }
 
+    private class ParseExponent{
+	public ParseResult<AST> parseBase(int pos) throws ParserException{
+	    return parsePrimary(pos);
+	}
+	public ParseResult<AST> parseNext(int pos) throws ParserException{
+		return parseExponentExpression(pos);
+
+	}
+	public ParseResult<Operator> parseOp(int pos) throws ParserException{
+	    final Token tokenHere = tokenAt(pos);
+	    if (tokenHere.equals(EXPONENT_TOKEN)) {
+		return new ParseResult<Operator>(Exponent.EXPONENT, pos + 1);
+	    } else {
+		throw new ParserException("Expected ** operator ");
+	    }
+	}
+	
+	public ParseResult<AST> parseExp(final int pos) throws ParserException {
+	    ParseResult<AST> curResult = parseBase(pos);
+	    boolean shouldRun = true;
+
+	    while (shouldRun) {
+		try {
+		    final ParseResult<Operator> opResult = parseOp(curResult.getNextPos());
+		    final ParseResult<AST> nextBaseResult = parseNext(opResult.getNextPos());
+		    curResult = new ParseResult<AST>(new Binop(curResult.getResult(),
+							       opResult.getResult(),
+							       nextBaseResult.getResult()),
+						     nextBaseResult.getNextPos());
+		} catch (ParserException e) {
+		    shouldRun = false;
+		}
+	    }
+
+	    return curResult;
+	}
+    }
+
+    private class ParseComparison extends ParseAdditiveOrMultiplicative {
+
+        public ParseResult<AST> parseBase(final int pos) throws ParserException {
+            return parseAdditiveExpression(pos);
+        }
+
+        public ParseResult<Operator> parseOp(final int pos) throws ParserException {
+	    final Token tokenHere = tokenAt(pos);
+	    if (tokenHere.equals(EQUALS_TOKEN)) {
+		return new ParseResult<Operator>(Equals.EQUALS, pos + 1);
+	    } else if (tokenHere.equals(NOTEQUALS_TOKEN)) {
+		return new ParseResult<Operator>(NotEquals.NOTEQUALS, pos + 1);
+	    } else if (tokenHere.equals(LESSTHAN_TOKEN)) {
+		return new ParseResult<Operator>(LessThan.LESSTHAN, pos + 1);
+	    }else if (tokenHere.equals(GREATERTHAN_TOKEN)) {
+		return new ParseResult<Operator>(GreaterThan.GREATERTHAN, pos + 1);
+	    }else if (tokenHere.equals(LESSTHANOREQUALS_TOKEN)) {
+		return new ParseResult<Operator>(LessThanOrEquals.LESSTHANOREQUALS, pos + 1);
+	    }else if (tokenHere.equals(GREATERTHANOREQUALS_TOKEN)) {
+		return new ParseResult<Operator>(GreaterThanOrEquals.GREATERTHANOREQUALS, pos + 1);
+	    }else {
+		throw new ParserException("Expected == or != or > or < or >= or <= operator ");
+	    }
+	}
+    }
+    
 	// BEGIN CODE FOR MULIPLICATIVE AND ADDITIVE EXPRESSIONS
 
     private ParseResult<Operator> parsePlusMinus(final int pos) throws ParserException {
@@ -104,7 +175,7 @@ public class Parser {
 
     private class ParseMultiplicative extends ParseAdditiveOrMultiplicative {
         public ParseResult<AST> parseBase(final int pos) throws ParserException {
-            return parsePrimary(pos);
+            return parseExponentExpression(pos);
         }
         public ParseResult<Operator> parseOp(final int pos) throws ParserException {
             return parseTimesDiv(pos);
@@ -117,7 +188,9 @@ public class Parser {
 
     private final ParseAdditive PARSE_ADDITIVE = new ParseAdditive();
     private final ParseMultiplicative PARSE_MULTIPLICATIVE = new ParseMultiplicative();
-
+    private final ParseComparison PARSE_COMPARISON = new ParseComparison();
+    private final ParseExponent PARSE_EXPONENT = new ParseExponent();
+    
     private ParseResult<AST> parseMultiplicativeExpression(final int pos)
     throws ParserException {
         return PARSE_MULTIPLICATIVE.parseExp(pos);
@@ -128,10 +201,20 @@ public class Parser {
         return PARSE_ADDITIVE.parseExp(pos);
     }
 
+    private ParseResult<AST> parseComparisonExpression(final int pos)
+	throws ParserException {
+        return PARSE_COMPARISON.parseExp(pos);
+    }
+
+    private ParseResult<AST> parseExponentExpression(final int pos)
+	throws ParserException {
+        return PARSE_EXPONENT.parseExp(pos);
+    }
+    
     // END CODE FOR MULIPLICATIVE AND ADDITIVE EXPRESSIONS
 
     private ParseResult<AST> parseExpression(final int pos) throws ParserException {
-        return parseAdditiveExpression(pos);
+        return parseComparisonExpression(pos);
     }
 
     /**

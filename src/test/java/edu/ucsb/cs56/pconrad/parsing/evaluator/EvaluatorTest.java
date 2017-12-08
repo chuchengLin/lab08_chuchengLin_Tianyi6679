@@ -9,8 +9,6 @@ import org.junit.Test;
 import org.junit.Rule;
 import org.junit.rules.ExpectedException;
 
-import org.junit.Test;
-
 /**
  * Tests the evaluator; that is, the code that takes an
  * AST and evaluates it down to an integer.
